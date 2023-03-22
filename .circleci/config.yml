@@ -1,36 +1,24 @@
 version: 2.1
 
 jobs:
-  build:
-    docker:
-      - image: circleci/php:7.1-node-browsers
+    build:
+    #...
+    deploy:
+    machine:
+        enabled: true
     steps:
-      - checkout
-      - run: composer install
-  deploy:
-    docker:
-      - image: circleci/ssh:0.1.0
-    steps:
-      - run:
-          name: Copy ssh key
-          command: |
-            echo $SSH_PRIVATE_KEY | base64 --decode > ~/.ssh/id_rsa
-            chmod 600 ~/.ssh/id_rsa
-      - run:
-          name: Deploy
-          command: |
-            ssh -o StrictHostKeyChecking=no ubuntu@13.235.42.52 "cd /var/www/html/php-website && git pull origin master"
+        - run:
+            name: Deploy Over SSH
+            command: |
+            ssh ubuntu@13.233.227.241 "cd /var/www/html/php-website && git pull origin master"
+
 workflows:
-  version: 2
-  build-and-deploy:
+    build-and-deploy:
     jobs:
-      - build:
-          filters:
+        - build
+        - deploy:
+            requires:
+            - build # only deploy once build job has completed
+            filters:
             branches:
-              only: master
-      - deploy:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
+                only: main # only deploy on the main branch
