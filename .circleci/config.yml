@@ -1,8 +1,6 @@
 version: 2.1
 
 jobs:
-  build:
-    # ...
   deploy:
     machine:
       enabled: true
@@ -15,10 +13,7 @@ jobs:
 workflows:
   build-and-deploy:
     jobs:
-      - build
       - deploy:
-          requires:
-            - build # only deploy once build job has completed
           filters:
             branches:
               only: master # only deploy on the main branch
