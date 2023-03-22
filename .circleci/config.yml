@@ -1,0 +1,31 @@
+version: 2.1
+
+jobs:
+  build:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/php:7.4-cli
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: |
+            sudo apt-get update && sudo apt-get install -y \
+              git \
+              zip \
+              unzip \
+              php7.4 \
+              php7.4-mbstring \
+              php7.4-zip
+            curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+            composer install --no-ansi --no-interaction --no-progress --no-scripts
+      - run:
+          name: Deploy to EC2
+          command: |
+            ssh ubuntu@13.235.42.52 "cd /var/www/html/php-website && git pull origin master"
+
+  runner-test:
+    machine: true
+    resource_class: shashwat456/circlecirunner
+    steps:
+      - run: echo "Hi I'm on Runners!"
