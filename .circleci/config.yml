@@ -12,7 +12,7 @@ jobs:
           command: |
             curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
             composer install --no-ansi --no-interaction --no-progress --no-scripts
-  deploy:
+      - run:
           name: Deploy to EC2
           command: |
             ssh ubuntu@13.233.227.241 "cd /var/www/html/php-website && git pull origin master"
