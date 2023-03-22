@@ -22,7 +22,7 @@ jobs:
       - run:
           name: Deploy to EC2
           command: |
-            ssh ubuntu@13.235.42.52 "cd /var/www/html/php-website && git pull origin master"
+            ssh ubuntu@13.233.227.241 "cd /var/www/html/php-website && git pull origin master"
 
   runner-test:
     machine: true
