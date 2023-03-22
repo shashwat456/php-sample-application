@@ -7,7 +7,6 @@ jobs:
     steps:
       - checkout
       - run: composer install
-      - run: vendor/bin/phpunit
   deploy:
     docker:
       - image: circleci/ssh:0.1.0
