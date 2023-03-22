@@ -2,9 +2,9 @@ version: 2.1
 
 jobs:
   build:
-    working_directory: ~/repo
+    working_directory: /var/www/html/php-website
     docker:
-      - image: circleci/php:7.4-cli
+      - image: circleci/php:7.1-node-browsers
     steps:
       - checkout
       - run:
@@ -14,9 +14,9 @@ jobs:
               git \
               zip \
               unzip \
-              php7.4 \
-              php7.4-mbstring \
-              php7.4-zip
+              php7.1 \
+              php7.1-mbstring \
+              php7.1-zip
             curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
             composer install --no-ansi --no-interaction --no-progress --no-scripts
       - run:
