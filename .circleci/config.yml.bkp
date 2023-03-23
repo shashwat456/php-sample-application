@@ -9,14 +9,10 @@ jobs:
           name: Deploy
           command: |
             ssh -o StrictHostKeyChecking=no ubuntu@15.206.72.86 "cd /var/www/html/php-website && git pull origin master"
-          
-  runner-test:
-    machine: true
-    resource_class: shashwat456/circlecirunner
-    steps:
-      - run: echo "Hi I'm on Runners!"
-
 workflows:
-  testing:
+  build-and-deploy:
     jobs:
-      - runner-test
+      - deploy:
+          filters:
+            branches:
+              only: master # only deploy on the main branch
