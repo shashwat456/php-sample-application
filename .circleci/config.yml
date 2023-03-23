@@ -8,7 +8,7 @@ jobs:
       - checkout
       - add_ssh_keys:
            fingerprints:
-               - "b2:e5:21:05:01:3e:a8:79:13:4a:12:c5:ac:2e:6f:45" 
+               - "27:48:da:82:82:46:fb:43:e3:be:e5:8d:99:aa:2c:74" 
       - run:
           name: Deploy
           command: |
