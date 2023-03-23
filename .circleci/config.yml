@@ -20,3 +20,9 @@ workflows:
   testing:
     jobs:
       - runner-test
+  build-and-deploy:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only: master # only deploy on the main branch
