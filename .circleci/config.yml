@@ -5,11 +5,10 @@ jobs:
     machine:
       enabled: true
     steps:
-      - run:
-          name: Copy ssh key
-          command: |
-            echo $SSH_PRIVATE_KEY | base64 --decode > ~/.ssh/id_rsa
-            chmod 600 ~/.ssh/id_rsa
+      - checkout
+      - add_ssh_keys:
+           fingerprints:
+               - "b2:e5:21:05:01:3e:a8:79:13:4a:12:c5:ac:2e:6f:45" 
       - run:
           name: Deploy
           command: |
