@@ -6,10 +6,14 @@ jobs:
       enabled: true
     steps:
       - run:
-          name: Deploy Over SSH
+          name: Copy ssh key
           command: |
-            ssh ubuntu@13.233.227.241 "cd /var/www/html/php-website && git pull origin master"
-
+            echo $SSH_PRIVATE_KEY | base64 --decode > ~/.ssh/id_rsa
+            chmod 600 ~/.ssh/id_rsa
+      - run:
+          name: Deploy
+          command: |
+            ssh -o StrictHostKeyChecking=no ubuntu@13.233.227.241 "cd /var/www/html/php-website && git pull origin master"
 workflows:
   build-and-deploy:
     jobs:
